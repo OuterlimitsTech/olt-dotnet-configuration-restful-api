@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34928.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{32812D02-C60F-4F2E-8980-84B45BF62EA8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{94E97D3A-7548-4EBE-B245-2CAE63E0149C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BC653805-F2EB-4037-B731-31C1AF5066FB}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		.config\dotnet-tools.json = .config\dotnet-tools.json
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OLT.Extensions.Configuration.REST.Api", "src\OLT.Extensions.Configuration.REST.Api\OLT.Extensions.Configuration.REST.Api.csproj", "{C352E56E-8AD4-4F63-A548-DF41979F5AD2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OLT.Extensions.Configuration.REST.Api.Tests", "tests\OLT.Extensions.Configuration.REST.Api.Tests\OLT.Extensions.Configuration.REST.Api.Tests.csproj", "{CEA8890B-3842-48C0-BCDD-C83837E1B70B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".workflow", ".workflow", "{A6C82D76-69AA-4907-8102-F045376719DE}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build.yml = .github\workflows\build.yml
+		.github\workflows\release.yml = .github\workflows\release.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C352E56E-8AD4-4F63-A548-DF41979F5AD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C352E56E-8AD4-4F63-A548-DF41979F5AD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C352E56E-8AD4-4F63-A548-DF41979F5AD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C352E56E-8AD4-4F63-A548-DF41979F5AD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEA8890B-3842-48C0-BCDD-C83837E1B70B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEA8890B-3842-48C0-BCDD-C83837E1B70B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEA8890B-3842-48C0-BCDD-C83837E1B70B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEA8890B-3842-48C0-BCDD-C83837E1B70B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C352E56E-8AD4-4F63-A548-DF41979F5AD2} = {32812D02-C60F-4F2E-8980-84B45BF62EA8}
+		{CEA8890B-3842-48C0-BCDD-C83837E1B70B} = {94E97D3A-7548-4EBE-B245-2CAE63E0149C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {43EFE665-3F36-4E3C-A407-D3482A2D25D6}
+	EndGlobalSection
+EndGlobal

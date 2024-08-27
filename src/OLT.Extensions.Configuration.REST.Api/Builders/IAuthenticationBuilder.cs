@@ -1,32 +1,6 @@
-﻿namespace OLT.Extensions.Configuration.REST.Api.Builders;
+﻿namespace OLT.Extensions.Configuration.RESTApi.Builders;
 
 public interface IAuthenticationBuilder
 {
     
 }
-
-public class AuthenticationBuilder : IAuthenticationBuilder
-{
-    internal AuthenticationBuilder(ApiOptionsBuilder optionsBuilder)
-    {
-        OptionsBuilder = optionsBuilder;
-    }
-
-    internal ApiOptionsBuilder OptionsBuilder { get; }
-}
-
-public interface IHeaderBuilder
-{
-
-}
-
-public class HeaderBuilder : IHeaderBuilder
-{
-    internal HeaderBuilder(ApiOptionsBuilder optionsBuilder)
-    {
-        OptionsBuilder = optionsBuilder;
-    }
-
-    internal ApiOptionsBuilder OptionsBuilder { get; }
-}
-

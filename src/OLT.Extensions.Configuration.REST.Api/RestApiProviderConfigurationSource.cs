@@ -1,14 +1,14 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace OLT.Extensions.Configuration.REST.Api;
+namespace OLT.Extensions.Configuration.RESTApi;
 
 
-public class RestApiConfigProviderConfigurationSource : IConfigurationSource
+public class RestApiProviderConfigurationSource : IConfigurationSource
 {
     public bool Optional { get; set; }
     public TimeSpan? ReloadAfter { get; set; }
     public TimeSpan Timeout { get; set; } = TimeSpan.FromSeconds(5);
-    public RestApiConfigProviderOptions RestApiConfigProviderOptions { get; set; } = new RestApiConfigProviderOptions();
+    public Flurl.Http.IFlurlRequest Request { get; set; } = new Flurl.Http.FlurlRequest();
 
     public IConfigurationProvider Build(IConfigurationBuilder builder)
     {

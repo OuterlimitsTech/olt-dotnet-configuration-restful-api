@@ -1,69 +1,8 @@
-﻿using OLT.Extensions.Configuration.REST.Api.Builders;
+﻿using OLT.Extensions.Configuration.RESTApi.Builders;
 using Flurl;
 using Flurl.Http;
 
-namespace OLT.Extensions.Configuration.REST.Api;
-
-public interface IApiOptionsBuilder
-{
-    //ApiOptionsBuilder AddBuilder(IHttpClientBuilder builder);
-    //ApiOptionsBuilder AddBuilder(IHttpClientQueryBuilder builder);
-}
-
-public class ApiOptionsBuilder : IApiOptionsBuilder
-{
-    private TimeSpan? _reloadAfter;
-    private readonly string _endpoint;
-    private readonly Flurl.Url _url;
-
-    public ApiOptionsBuilder(string endpoint)
-    {
-        ArgumentNullException.ThrowIfNullOrEmpty(endpoint);
-        _endpoint = endpoint;
-        _url = new Flurl.Url(endpoint);
-        Request = new Flurl.Http.FlurlRequest(_url);
-    }
-
-    internal Flurl.Http.IFlurlRequest Request { get; }
-
-    //private readonly List<IHttpClientBuilder> _httpClientBuilders = new List<IHttpClientBuilder>();
-
-    //public ApiOptionsBuilder AddBuilder(IHttpClientBuilder builder)
-    //{
-    //    _httpClientBuilders.Add(builder);
-    //    return this;
-    //}
-
-    //private readonly List<IHttpClientQueryBuilder> _httpQueryBuilders = new List<IHttpClientQueryBuilder>();
-    //public ApiOptionsBuilder AddBuilder(IHttpClientQueryBuilder builder)
-    //{
-    //    _httpQueryBuilders.Add(builder);        
-    //    return this;
-    //}
-    
-}
-
-
-
-
-
-
-
-
-//internal class AuthenticationBuilder : IAuthenticationBuilder
-//{
-//    public AuthenticationBuilder(IApiOptionsBuilder optionsBuilder)
-//    {
-//        OptionsBuilder = optionsBuilder;
-//    }
-
-//    public ApiOptionsBuilder OptionsBuilder { get; }
-
-//}
-
-
-
-
+namespace OLT.Extensions.Configuration.RESTApi;
 
 public static class ApiConfigBuilderExtensions
 {

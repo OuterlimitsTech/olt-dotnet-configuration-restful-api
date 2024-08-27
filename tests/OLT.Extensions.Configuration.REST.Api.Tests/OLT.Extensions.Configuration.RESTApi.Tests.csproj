@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\OLT.Extensions.Configuration.REST.Api\OLT.Extensions.Configuration.REST.Api.csproj" />
+    <ProjectReference Include="..\..\src\OLT.Extensions.Configuration.REST.Api\OLT.Extensions.Configuration.RESTApi.csproj" />
   </ItemGroup>
 
   <ItemGroup>

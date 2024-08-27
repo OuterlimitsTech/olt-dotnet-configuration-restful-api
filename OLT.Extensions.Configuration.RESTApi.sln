@@ -13,9 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.config\dotnet-tools.json = .config\dotnet-tools.json
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OLT.Extensions.Configuration.REST.Api", "src\OLT.Extensions.Configuration.REST.Api\OLT.Extensions.Configuration.REST.Api.csproj", "{C352E56E-8AD4-4F63-A548-DF41979F5AD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OLT.Extensions.Configuration.RESTApi", "src\OLT.Extensions.Configuration.REST.Api\OLT.Extensions.Configuration.RESTApi.csproj", "{C352E56E-8AD4-4F63-A548-DF41979F5AD2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OLT.Extensions.Configuration.REST.Api.Tests", "tests\OLT.Extensions.Configuration.REST.Api.Tests\OLT.Extensions.Configuration.REST.Api.Tests.csproj", "{CEA8890B-3842-48C0-BCDD-C83837E1B70B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OLT.Extensions.Configuration.RESTApi.Tests", "tests\OLT.Extensions.Configuration.REST.Api.Tests\OLT.Extensions.Configuration.RESTApi.Tests.csproj", "{CEA8890B-3842-48C0-BCDD-C83837E1B70B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".workflow", ".workflow", "{A6C82D76-69AA-4907-8102-F045376719DE}"
 	ProjectSection(SolutionItems) = preProject

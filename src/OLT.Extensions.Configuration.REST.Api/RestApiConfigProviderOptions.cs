@@ -1,20 +1,22 @@
-﻿using System.Data.Common;
+﻿//using System.Data.Common;
 
-namespace OLT.Extensions.Configuration.REST.Api;
+//namespace OLT.Extensions.Configuration.RESTApi;
 
 
-public class RestApiConfigProviderOptions
+//public class RestApiConfigProviderOptions
+//{
+//    public RestApiConfigProviderOptions(Flurl.Http.IFlurlRequest request)
+//    {
+        
+//    }
 
-{
+//    /// <summary>
+//    /// RESTful API endpoint
+//    /// </summary>
+//    public string Endpoint { get; set; } = string.Empty;
+
+       
+
     
-    /// <summary>
-    /// RESTful API endpoint
-    /// </summary>
-    //public string Endpoint { get; set; } = string.Empty;
-
-
-    
-
-    
-}
+//}
 

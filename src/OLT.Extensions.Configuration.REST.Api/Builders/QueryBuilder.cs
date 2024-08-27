@@ -1,6 +1,6 @@
 ﻿using Flurl.Http;
 
-namespace OLT.Extensions.Configuration.REST.Api.Builders;
+namespace OLT.Extensions.Configuration.RESTApi.Builders;
 
 internal class QueryBuilder : IHttpQueryBuilder
 {

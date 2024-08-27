@@ -1,100 +1,58 @@
 using Microsoft.Extensions.Configuration;
 using Moq;
 
-namespace OLT.Extensions.Configuration.REST.Api.Tests
+namespace OLT.Extensions.Configuration.RESTApi.Tests
 {
     public class ConfigurationsUnitTest
     {
         [Fact]
-        public void BuildConfiguration_ShouldReturnIConfiguration()
+        public void BuildConfiguration_ShouldReturnConfigurationSource()
         {
-            // Arrange
-            var mockConfigurationBuilder = new Mock<IConfigurationBuilder>();
-            var mockConfiguration = new Mock<IConfiguration>();
-            //mockConfigurationBuilder.Setup(x => x.Build()).Returns(mockConfiguration.Object);
+            var configRoot = BuildMockOptions();
+            var mockConfigBuilder = new Mock<IConfigurationBuilder>();
+            mockConfigBuilder.Setup(b => b.Build()).Returns(configRoot);
 
-            ConfigurationBuilderExtensions.AddRestApiConfigProvider(mockConfigurationBuilder, "https://test.com", false, options =>
+            var configBuilder = mockConfigBuilder.Object;
+            var configSection = configBuilder.Build().GetSection("ConfigApi");
+
+            var endpoint = configSection["Endpoint"] ?? string.Empty;
+            var environment = configSection["Environment"] ?? string.Empty;
+            var apiKey = configSection["ApiKey"] ?? string.Empty;
+
+            ConfigurationBuilderExtensions.AddRestApiConfigProvider(configBuilder, endpoint, true, options =>
             {
                 options
                     .SetHeaderAcceptJson()
-                    .SetQueryParam("env", "dev")                    
-                    .UseAuthentication(auth => auth.WithApiKey("1234", "API-KEY"))
-                    ;
+                    .SetQueryParam("env", environment)  //Environment
+                    .UseAuthentication(auth => auth.WithApiKey(apiKey, "API-KEY"));
 
             });
-            //var service = new ConfigurationService(mockConfigurationBuilder.Object);
 
-            // Act
-            var result = service.BuildConfiguration();
-
-            // Assert
-            Assert.NotNull(result);
+            var result = configBuilder.Build();
+            Assert.NotNull(result);            
             Assert.IsAssignableFrom<IConfiguration>(result);
-        }
 
-        [Fact]
-        public void TestOptions()
-        {
-            var optionsBuilder = new ApiOptionsBuilder("https://fake.com");
-
-            optionsBuilder                
-                .SetHeaderAcceptJson()
-                .UseAuthentication(opt => opt.WithApiKey("1234", "X-API-KEY"))
-                ;
-
-            var test = optionsBuilder as IApiOptionsBuilder;
             
-            Assert.True(true);
+            var source = result.Get<RestApiProviderConfigurationSource>();
 
-            //var configRoot = BuildMockOptions();
-
-            //var builder = new Mock<IConfigurationBuilder>();
-            //builder.Setup(b => b.Build()).Returns(configRoot);
-
-            //var options = BuildOptions(builder.Object);
-            //builder.Object.AddRestApiConfigProvider(options);
-
-            //var configSection = builder.Object.Build().GetSection("RestApi");
-            //Assert.Multiple(() =>
-            //{
-            //    Assert.Equal(options.ClientId, configSection["ClientId"]);
-            //    Assert.Equal(options.ClientSecret, configSection["ClientSecret"]);
-            //    Assert.Equal(options.SiteUrl, configSection["SiteUrl"]);
-            //    Assert.Equal(options.ProjectId, configSection["ProjectId"]);
-            //    Assert.Equal(options.Environment, configSection["Environment"]);
-            //});
-
+            Assert.NotNull(source);
+            Assert.IsAssignableFrom<RestApiProviderConfigurationSource>(source);
         }
 
-        //private static RestApiConfigProviderOptions BuildOptions(IConfigurationBuilder builder)
-        //{
-        //    var config = builder.Build().GetRequiredSection("RestApiConfigProvider");
 
+        private static IConfigurationRoot BuildMockOptions()
+        {
+            var dict = new Dictionary<string, string?>
+            {
+                { "ConfigApi:Endpoint", Faker.Internet.SecureUrl() },
+                { "ConfigApi:Environment", Faker.Internet.DomainName() },
+                { "ConfigApi:ApiKey", Faker.Lorem.Words(3).Last() },
+                { "ConfigApi:Token", Faker.Lorem.Words(4).Last() },
+            };
 
-        //    return new RestApiConfigProviderOptions
-        //    {
-        //        ClientId = config["ClientId"] ?? string.Empty,
-        //        ClientSecret = config["ClientSecret"] ?? string.Empty,
-        //        SiteUrl = config["SiteUrl"] ?? string.Empty,
-        //        ProjectId = config["ProjectId"] ?? string.Empty,
-        //        Environment = config["Environment"] ?? string.Empty,
-        //    };
-        //}
-
-        //private static IConfigurationRoot BuildMockOptions()
-        //{
-        //    var dict = new Dictionary<string, string?>
-        //    {
-        //        { "RestApi:ClientId", Faker.Identification.UkNhsNumber() },
-        //        { "RestApi:ClientSecret", Faker.Identification.UsPassportNumber() },
-        //        { "RestApi:SiteUrl", Faker.Internet.Url() },
-        //        { "RestApi:ProjectId", Faker.Internet.UserName() },
-        //        { "RestApi:Environment", Faker.Lorem.GetFirstWord() },
-        //    };
-
-        //    return new ConfigurationBuilder()
-        //        .AddInMemoryCollection(dict)
-        //        .Build();
-        //}
+            return new ConfigurationBuilder()
+                .AddInMemoryCollection(dict)
+                .Build();
+        }
     }
 }

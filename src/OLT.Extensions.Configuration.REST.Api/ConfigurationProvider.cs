@@ -1,49 +1,33 @@
-﻿using System.Collections.Frozen;
+﻿using Flurl.Http;
+using System.Collections.Frozen;
 using System.Diagnostics;
 using System.Net.Http.Headers;
 
-namespace OLT.Extensions.Configuration.REST.Api;
+namespace OLT.Extensions.Configuration.RESTApi;
 
 
 public class RestApiConfigProviderConfigurationProvider : Microsoft.Extensions.Configuration.ConfigurationProvider, IDisposable
 {
-    //private readonly Lazy<RestApiConfigProviderClient> _RestApiConfigProviderClient;
-    private readonly RestApiConfigProviderConfigurationSource _source;
+    private readonly Lazy<IFlurlClient> _client;
+    private readonly RestApiProviderConfigurationSource _source;
     private readonly Timer? _refreshTimer;
-
 
     private static readonly TimeSpan MinDelayForUnhandledFailure = TimeSpan.FromSeconds(5);
     private bool _isInitialLoadComplete;
     private int _networkOperationsInProgress;
 
 
-    public RestApiConfigProviderConfigurationProvider(RestApiConfigProviderConfigurationSource source)
+    public RestApiConfigProviderConfigurationProvider(RestApiProviderConfigurationSource source)
     {
         _source = source ?? throw new ArgumentNullException(nameof(source));
-        //_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-        //ArgumentException.ThrowIfNullOrEmpty(source.RestApiConfigProviderOptions.SiteUrl, "RestApiConfigProviderOptions.SiteUrl");
-        //ArgumentException.ThrowIfNullOrEmpty(source.RestApiConfigProviderOptions.ClientId, "RestApiConfigProviderOptions.ClientId");
-        //ArgumentException.ThrowIfNullOrEmpty(source.RestApiConfigProviderOptions.ClientSecret, "RestApiConfigProviderOptions.ClientSecret");
-        //ArgumentException.ThrowIfNullOrEmpty(source.RestApiConfigProviderOptions.Environment, "RestApiConfigProviderOptions.Environment");
-        //ArgumentException.ThrowIfNullOrEmpty(source.RestApiConfigProviderOptions.ProjectId, "RestApiConfigProviderOptions.ProjectId");
 
-        //_RestApiConfigProviderClient = new Lazy<RestApiConfigProviderClient>(() =>
-        //{
-        //    ClientSettings settings = new ClientSettings
-        //    {
-        //        SiteUrl = source.RestApiConfigProviderOptions.SiteUrl,
-        //        Auth = new AuthenticationOptions
-        //        {
-        //            UniversalAuth = new UniversalAuthMethod
-        //            {
-        //                ClientId = source.RestApiConfigProviderOptions.ClientId,
-        //                ClientSecret = source.RestApiConfigProviderOptions.ClientSecret
-        //            }
-        //        }
-        //    };
+        _source.Request.WithTimeout(_source.Timeout);
 
-        //    return new RestApiConfigProviderClient(settings);
-        //});
+        _client = new Lazy<IFlurlClient>(() =>
+        {
+            var result = _source.Request.EnsureClient();            
+            return result;
+        });
 
         if (source.ReloadAfter != null)
         {
@@ -54,21 +38,14 @@ public class RestApiConfigProviderConfigurationProvider : Microsoft.Extensions.C
 
 
     public override void Load()
-    {
-
-        var stopwatch = Stopwatch.StartNew();
+    {        
         try
         {
-            Load(false);
+            LoadAsync(false).ConfigureAwait(false).GetAwaiter().GetResult();
         }
         catch
         {
-            var delay = MinDelayForUnhandledFailure.Subtract(stopwatch.Elapsed);
-            if (delay.Ticks > 0L)
-                Task.Delay(delay).ConfigureAwait(false).GetAwaiter().GetResult();
-
-            if (!_source.Optional)
-                throw;
+            throw;
         }
         finally
         {
@@ -76,44 +53,32 @@ public class RestApiConfigProviderConfigurationProvider : Microsoft.Extensions.C
         }
     }
 
-    private void Load(bool reload)
+    private async Task LoadAsync(bool reload)
     {
-    //    Load(secrets =>
-    //    {
-    //        var data = new Dictionary<string, string>();
-    //        foreach (var (key, value) in secrets)
-    //        {
-    //            data.Add(key, value.SecretValue);
-    //        }
-    //        Data = data!;
+     
+        try
+        {
+            var newData = await _source.Request.GetJsonAsync<Dictionary<string, string?>>().ConfigureAwait(false) ?? new Dictionary<string, string?>();
+            if (Data != null && !Data.EquivalentTo(newData))
+            {
+                Data = newData;
 
-    //        if (reload)
-    //        {
-    //            OnReload();
-    //        }
-    //    });
+                if (reload)
+                {
+                    OnReload();
+                }                
+            }
+
+        }
+        catch
+        {
+            if (_source.Optional) return;
+
+            if (!reload) throw;
+        }
+
+        
     }
-
-
-    //private void Load(Action<IDictionary<string, SecretElement>> callback)
-    //{
-    //    var task = Task.Run(() => callback(LoadSecrets()));
-    //    if (!task.Wait(_source.Timeout))
-    //        throw new Exception("Timeout while loading secrets.");
-    //}
-
-    //private FrozenDictionary<string, SecretElement> LoadSecrets()
-    //{
-    //    var request = new ListSecretsOptions
-    //    {
-    //        Environment = _source.RestApiConfigProviderOptions.Environment,
-    //        ProjectId = _source.RestApiConfigProviderOptions.ProjectId,
-    //        Path = _source.RestApiConfigProviderOptions.Path,
-    //        Recursive = _source.RestApiConfigProviderOptions.Recursive
-    //    };
-
-    //    return _RestApiConfigProviderClient.Value.ListSecrets(request).ToFrozenDictionary(s => s.SecretKey);
-    //}
 
     private void OnTimerElapsed(object? state)
     {
@@ -126,14 +91,11 @@ public class RestApiConfigProviderConfigurationProvider : Microsoft.Extensions.C
 
         try
         {
-            Load(true);
+            LoadAsync(true).ConfigureAwait(false).GetAwaiter().GetResult();
         }
         catch
         {
-            if (!_source.Optional)
-            {
-                throw;
-            }
+            throw;
         }
         finally
         {
@@ -148,10 +110,10 @@ public class RestApiConfigProviderConfigurationProvider : Microsoft.Extensions.C
     {
         _refreshTimer?.Dispose();
 
-        //if (!_RestApiConfigProviderClient.IsValueCreated)
-        //    return;
+        if (!_client.IsValueCreated)
+            return;
 
-        //_RestApiConfigProviderClient.Value.Dispose();
+        _client.Value.Dispose();        
     }
 
 }

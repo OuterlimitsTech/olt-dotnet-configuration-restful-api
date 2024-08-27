@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34928.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{32812D02-C60F-4F2E-8980-84B45BF62EA8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{94E97D3A-7548-4EBE-B245-2CAE63E0149C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BC653805-F2EB-4037-B731-31C1AF5066FB}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		.config\dotnet-tools.json = .config\dotnet-tools.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".workflow", ".workflow", "{A6C82D76-69AA-4907-8102-F045376719DE}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build.yml = .github\workflows\build.yml
+		.github\workflows\release.yml = .github\workflows\release.yml
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OLT.Extensions.Configuration.RESTApi", "src\OLT.Extensions.Configuration.RESTApi\OLT.Extensions.Configuration.RESTApi.csproj", "{C352E56E-8AD4-4F63-A548-DF41979F5AD2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OLT.Extensions.Configuration.RESTApi.Tests", "tests\OLT.Extensions.Configuration.RESTApi.Tests\OLT.Extensions.Configuration.RESTApi.Tests.csproj", "{12795C75-ED59-458A-985D-BF3B951F7DC2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C352E56E-8AD4-4F63-A548-DF41979F5AD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C352E56E-8AD4-4F63-A548-DF41979F5AD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C352E56E-8AD4-4F63-A548-DF41979F5AD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C352E56E-8AD4-4F63-A548-DF41979F5AD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12795C75-ED59-458A-985D-BF3B951F7DC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12795C75-ED59-458A-985D-BF3B951F7DC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12795C75-ED59-458A-985D-BF3B951F7DC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12795C75-ED59-458A-985D-BF3B951F7DC2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C352E56E-8AD4-4F63-A548-DF41979F5AD2} = {32812D02-C60F-4F2E-8980-84B45BF62EA8}
+		{12795C75-ED59-458A-985D-BF3B951F7DC2} = {94E97D3A-7548-4EBE-B245-2CAE63E0149C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {43EFE665-3F36-4E3C-A407-D3482A2D25D6}
+	EndGlobalSection
+EndGlobal

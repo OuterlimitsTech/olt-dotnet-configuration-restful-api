@@ -3,7 +3,6 @@
 
 public class ApiOptionsBuilder
 {
-    private TimeSpan? _reloadAfter;
     private readonly string _endpoint;
     private readonly Flurl.Url _url;
 

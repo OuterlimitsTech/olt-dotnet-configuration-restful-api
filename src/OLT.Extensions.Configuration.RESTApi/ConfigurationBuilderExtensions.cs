@@ -15,9 +15,9 @@ public static class ConfigurationBuilderExtensions
     /// <param name="optional"></param>
     /// <returns>The <see cref="IConfigurationBuilder"/></returns>
     /// <exception cref="ArgumentNullException"></exception>
-    public static IConfigurationBuilder AddRestApiConfigProvider(this IConfigurationBuilder builder, string endpoint, bool optional)
+    public static IConfigurationBuilder AddRestApi(this IConfigurationBuilder builder, string endpoint, bool optional)
     {
-        return builder.AddRestApiConfigProvider(ConfigureSource(new ApiOptionsBuilder(endpoint), optional, null));
+        return builder.AddRestApi(ConfigureSource(new ApiOptionsBuilder(endpoint), optional, null));
     }
 
     /// <summary>
@@ -32,9 +32,9 @@ public static class ConfigurationBuilderExtensions
     /// <param name="reloadAfter"></param>
     /// <returns>The <see cref="IConfigurationBuilder"/></returns>
     /// <exception cref="ArgumentNullException"></exception>
-    public static IConfigurationBuilder AddRestApiConfigProvider(this IConfigurationBuilder builder, string endpoint, bool optional, TimeSpan reloadAfter)
+    public static IConfigurationBuilder AddRestApi(this IConfigurationBuilder builder, string endpoint, bool optional, TimeSpan reloadAfter)
     {
-        return builder.AddRestApiConfigProvider(ConfigureSource(new ApiOptionsBuilder(endpoint), optional, reloadAfter));
+        return builder.AddRestApi(ConfigureSource(new ApiOptionsBuilder(endpoint), optional, reloadAfter));
     }
 
     /// <summary>
@@ -46,11 +46,11 @@ public static class ConfigurationBuilderExtensions
     /// <param name="action"></param>
     /// <returns>The <see cref="IConfigurationBuilder"/></returns>
     /// <exception cref="ArgumentNullException"></exception>
-    public static IConfigurationBuilder AddRestApiConfigProvider(this IConfigurationBuilder builder, string endpoint, bool optional, Action<ApiOptionsBuilder> action)
+    public static IConfigurationBuilder AddRestApi(this IConfigurationBuilder builder, string endpoint, bool optional, Action<ApiOptionsBuilder> action)
     {
         var optionsBuilder = new ApiOptionsBuilder(endpoint);
         action(optionsBuilder);
-        return builder.AddRestApiConfigProvider(ConfigureSource(optionsBuilder, optional, null));
+        return builder.AddRestApi(ConfigureSource(optionsBuilder, optional, null));
     }
 
     /// <summary>
@@ -63,11 +63,11 @@ public static class ConfigurationBuilderExtensions
     /// <param name="action"></param>
     /// <returns>The <see cref="IConfigurationBuilder"/></returns>
     /// <exception cref="ArgumentNullException"></exception>
-    public static IConfigurationBuilder AddRestApiConfigProvider(this IConfigurationBuilder builder, string endpoint, bool optional, TimeSpan reloadAfter, Action<ApiOptionsBuilder> action)
+    public static IConfigurationBuilder AddRestApi(this IConfigurationBuilder builder, string endpoint, bool optional, TimeSpan reloadAfter, Action<ApiOptionsBuilder> action)
     {
         var optionsBuilder = new ApiOptionsBuilder(endpoint);
         action(optionsBuilder);
-        return builder.AddRestApiConfigProvider(ConfigureSource(optionsBuilder, optional, reloadAfter));
+        return builder.AddRestApi(ConfigureSource(optionsBuilder, optional, reloadAfter));
     }
 
 
@@ -79,7 +79,7 @@ public static class ConfigurationBuilderExtensions
     /// <param name="configureSource"></param>
     /// <returns>The <see cref="IConfigurationBuilder"/></returns>
     /// <exception cref="ArgumentNullException"></exception>
-    public static IConfigurationBuilder AddRestApiConfigProvider(this IConfigurationBuilder builder, Action<RestApiProviderConfigurationSource> configureSource)
+    public static IConfigurationBuilder AddRestApi(this IConfigurationBuilder builder, Action<RestApiProviderConfigurationSource> configureSource)
     {
         if (configureSource == null) throw new ArgumentNullException(nameof(configureSource));
         var source = new RestApiProviderConfigurationSource();        

@@ -19,7 +19,7 @@ namespace OLT.Extensions.Configuration.RESTApi.Tests
             var environment = configSection["Environment"] ?? string.Empty;
             var apiKey = configSection["ApiKey"] ?? string.Empty;
 
-            ConfigurationBuilderExtensions.AddRestApiConfigProvider(configBuilder, endpoint, true, options =>
+            ConfigurationBuilderExtensions.AddRestApi(configBuilder, endpoint, true, options =>
             {
                 options
                     .SetHeaderAcceptJson()

@@ -60,8 +60,32 @@ public static class ApiConfigBuilderExtensions
     }
 
 
+    /// <summary>
+    /// Adds Path Segment to the end of the endpoint
+    /// </summary>
+    /// <remarks>
+    /// Base Endpoint = https://my.domain/api/configuration
+    /// <list type="table">
+    /// <item>
+    ///   <term>app1</term>
+    ///   <description>https://my.domain/api/configuration/app1</description>
+    /// </item>
+    /// <item>
+    ///   <term>foobar</term>
+    ///   <description>https://my.domain/api/configuration/foobar</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
+    /// <param name="builder"></param>
+    /// <param name="segment"></param>
+    /// <returns></returns>
+    public static ApiOptionsBuilder AppendPathSegment(this ApiOptionsBuilder builder, string segment)
+    {
+        ArgumentNullException.ThrowIfNull(builder);
+        ArgumentNullException.ThrowIfNullOrEmpty(segment);
+        builder.Request.AppendPathSegment(segment);
+        return builder;
+    }
 
-
-  
 
 }

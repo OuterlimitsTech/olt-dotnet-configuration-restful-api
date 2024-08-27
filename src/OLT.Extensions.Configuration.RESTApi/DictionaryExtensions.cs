@@ -1,10 +1,10 @@
 ﻿namespace OLT.Extensions.Configuration.RESTApi;
 
-public static class DictionaryExtensions
+internal static class DictionaryExtensions
 {
     public static bool EquivalentTo<TKey, TValue>(this IDictionary<TKey, TValue> first, IDictionary<TKey, TValue> second) => EquivalentTo(first, second, null);
 
-    public static bool EquivalentTo<TKey, TValue>(this IDictionary<TKey, TValue> first, IDictionary<TKey, TValue> second, IEqualityComparer<TValue> valueComparer)
+    public static bool EquivalentTo<TKey, TValue>(this IDictionary<TKey, TValue> first, IDictionary<TKey, TValue> second, IEqualityComparer<TValue>? valueComparer)
     {
         if (first == second) return true;
         if (first == null || second == null) return false;

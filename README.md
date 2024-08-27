@@ -11,7 +11,6 @@
 dotnet add package OLT.Extensions.Configuration.RESTApi
 ```
 
-### Simple
 
 ```csharp
 using OLT.Extensions.Configuration.RESTApi;

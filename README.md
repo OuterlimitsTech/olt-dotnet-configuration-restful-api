@@ -19,7 +19,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration
     .SetBasePath(builder.Environment.ContentRootPath)
-    .AddRestApiConfigProvider("https://my-configuration-endpoint/config/application", false, TimeSpan.FromMinutes(10),  options =>
+    .AddRestApi("https://my-configuration-endpoint/config/application", false, TimeSpan.FromMinutes(10),  options =>
             {
                 options
                     .SetHeaderAcceptJson()

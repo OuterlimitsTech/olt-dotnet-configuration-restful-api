@@ -1,7 +1,7 @@
-﻿namespace OLT.Extensions.Configuration.RESTApi;
+﻿//namespace OLT.Extensions.Configuration.RESTApi;
 
-public interface IHttpQueryBuilder : IHttpClientBuilder
-{
-    string Key { get; }
-    string Value { get; }
-}
+//public interface IHttpQueryBuilder : IHttpClientBuilder
+//{
+//    string Key { get; }
+//    string Value { get; }
+//}

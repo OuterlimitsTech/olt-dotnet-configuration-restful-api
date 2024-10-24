@@ -9,7 +9,6 @@ namespace OLT.Extensions.Configuration.RESTApi;
 public class RestApiConfigProviderConfigurationProvider : Microsoft.Extensions.Configuration.ConfigurationProvider, IDisposable
 {
     private readonly Lazy<IFlurlClient> _client;
-    private readonly RestApiProviderConfigurationSource _source;
     private readonly Timer? _refreshTimer;
 
     private static readonly TimeSpan MinDelayForUnhandledFailure = TimeSpan.FromSeconds(5);
@@ -19,13 +18,13 @@ public class RestApiConfigProviderConfigurationProvider : Microsoft.Extensions.C
 
     public RestApiConfigProviderConfigurationProvider(RestApiProviderConfigurationSource source)
     {
-        _source = source ?? throw new ArgumentNullException(nameof(source));
+        Source = source ?? throw new ArgumentNullException(nameof(source));
 
-        _source.Request.WithTimeout(_source.Timeout);
+        Source.Request.WithTimeout(Source.Timeout);
 
         _client = new Lazy<IFlurlClient>(() =>
         {
-            var result = _source.Request.EnsureClient();            
+            var result = Source.Request.EnsureClient();            
             return result;
         });
 
@@ -36,6 +35,7 @@ public class RestApiConfigProviderConfigurationProvider : Microsoft.Extensions.C
 
     }
 
+    public virtual RestApiProviderConfigurationSource Source { get; }
 
     public override void Load()
     {        
@@ -58,7 +58,7 @@ public class RestApiConfigProviderConfigurationProvider : Microsoft.Extensions.C
      
         try
         {
-            var newData = await _source.Request.GetJsonAsync<Dictionary<string, string?>>().ConfigureAwait(false) ?? new Dictionary<string, string?>();
+            var newData = await Source.Request.GetJsonAsync<Dictionary<string, string?>>().ConfigureAwait(false) ?? new Dictionary<string, string?>();
             if (Data != null && !Data.EquivalentTo(newData))
             {
                 Data = newData;
@@ -72,7 +72,7 @@ public class RestApiConfigProviderConfigurationProvider : Microsoft.Extensions.C
         }
         catch
         {
-            if (_source.Optional) return;
+            if (Source.Optional) return;
 
             if (!reload) throw;
         }
@@ -115,5 +115,12 @@ public class RestApiConfigProviderConfigurationProvider : Microsoft.Extensions.C
 
         _client.Value.Dispose();        
     }
+
+    /// <summary>
+    /// Generates a string representing this provider name and relevant details.
+    /// </summary>
+    /// <returns>The configuration name.</returns>
+    public override string ToString()
+        => $"{GetType().Name} for '{Source.Request.Url.ToString()}' ({(Source.Optional ? "Optional" : "Required")})";
 
 }

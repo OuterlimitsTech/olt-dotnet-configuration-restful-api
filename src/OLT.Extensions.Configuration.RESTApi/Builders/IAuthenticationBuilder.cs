@@ -1,6 +1,6 @@
-﻿namespace OLT.Extensions.Configuration.RESTApi.Builders;
+﻿//namespace OLT.Extensions.Configuration.RESTApi.Builders;
 
-public interface IAuthenticationBuilder
-{
+//public interface IAuthenticationBuilder
+//{
     
-}
+//}

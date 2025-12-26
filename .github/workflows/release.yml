@@ -27,7 +27,7 @@ jobs:
 
       - name: Get Version
         id: version
-        uses: battila7/get-version-action@v2.2.1
+        uses: battila7/get-version-action@v2.3.0
 
       - name: Restore dependencies
         run: dotnet restore ${{ format('{0}/{1}', env.SOURCE_DIRECTORY, env.SOLUTION_FILE) }}

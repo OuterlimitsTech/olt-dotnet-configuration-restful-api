@@ -1,6 +1,6 @@
 ﻿namespace OLT.Extensions.Configuration.RESTApi.Builders;
 
-public class AuthenticationBuilder //: IAuthenticationBuilder
+public class AuthenticationBuilder
 {
     internal AuthenticationBuilder(ApiOptionsBuilder optionsBuilder)
     {

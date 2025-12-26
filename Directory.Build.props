@@ -5,7 +5,7 @@
     <Company>OuterLimits Technologies, Inc</Company>
     <Product>Configuration provider for Restful Api</Product>
     <Authors>Chris Straw</Authors>
-    <Copyright>Copyright © 2003-2024, OuterLimits Technologies, Inc Plainfield, IN</Copyright>
+    <Copyright>Copyright © 2003-2026, OuterLimits Technologies, Inc Plainfield, IN</Copyright>
     <RepositoryUrl>https://github.com/OuterlimitsTech/olt-dotnet-configuration-restful-api</RepositoryUrl>
     <PackageIcon>icon.png</PackageIcon>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>

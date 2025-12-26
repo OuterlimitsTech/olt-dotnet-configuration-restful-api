@@ -1,7 +1,4 @@
 ﻿using Flurl.Http;
-using System.Collections.Frozen;
-using System.Diagnostics;
-using System.Net.Http.Headers;
 
 namespace OLT.Extensions.Configuration.RESTApi;
 
@@ -11,7 +8,7 @@ public class RestApiConfigProviderConfigurationProvider : Microsoft.Extensions.C
     private readonly Lazy<IFlurlClient> _client;
     private readonly Timer? _refreshTimer;
 
-    private static readonly TimeSpan MinDelayForUnhandledFailure = TimeSpan.FromSeconds(5);
+    //private static readonly TimeSpan MinDelayForUnhandledFailure = TimeSpan.FromSeconds(5);
     private bool _isInitialLoadComplete;
     private int _networkOperationsInProgress;
 
